@@ -1,25 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ChangeEvent, useReducer } from "react";
+import "./App.css";
+import MyInput from "./components/atoms/MyInput";
+import NavBarTemplate from "./components/templates/NavBarTemplate";
+
+const EDIT_FORM = "EDIT_FORM";
+
+const initialValue = {
+  name: "",
+  surname: "",
+  address: "",
+};
+
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case EDIT_FORM:
+      return {
+        ...state,
+        [action.name]: action.value,
+      };
+
+    default:
+      return state;
+  }
+};
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialValue);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      value: e.target.value,
+      name: e.target.name,
+      type: EDIT_FORM,
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <NavBarTemplate>
+      <MyInput name="name" value={state.name} onChange={onChange} />
+      <MyInput name="surname" value={state.surname} onChange={onChange} />
+      <MyInput name="address" value={state.address} onChange={onChange} />
+    </NavBarTemplate>
   );
 }
 
