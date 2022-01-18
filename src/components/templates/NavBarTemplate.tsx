@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import NavBar from "../organisms/NavBar";
 
-const NavBarTemplate = ({ children }: { children: any }) => {
+const NavBarTemplate: FunctionComponent = ({ children }) => {
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
       <header className="App-header">{children}</header>
     </div>
   );
