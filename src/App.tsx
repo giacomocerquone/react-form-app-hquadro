@@ -1,39 +1,28 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import "./App.css";
-import useClickListener from "./components/hooks/useClickListener";
-import useFetchTodos from "./components/hooks/useFetchTodos";
 import NavBarTemplate from "./components/templates/NavBarTemplate";
 
 function App() {
-  const [mouseOnDiv, setMouseOnDiv] = useState(true);
-  const { todos } = useFetchTodos({ mouseOnDiv });
+  const inputRef = useRef<any>();
+  const textRef = useRef<any>();
 
-  useClickListener();
+  const onClick = () => {
+    inputRef.current?.focus();
+  };
+
+  const onSubmit = () => {
+    console.log(textRef.current?.value);
+  };
 
   return (
     <NavBarTemplate>
-      {todos === undefined && <p>Sto caricando</p>}
       <p>It works</p>
 
-      <div
-        id="mydiv"
-        style={{
-          width: 200,
-          height: 200,
-          border: "1px solid #fff",
-          alignItems: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}
-        onMouseEnter={() => setMouseOnDiv(true)}
-        onMouseOut={() => setMouseOnDiv(false)}
-      >
-        hover me
-      </div>
+      <input type="file" hidden ref={inputRef} />
+      <button onClick={onClick}>Upload a file</button>
 
-      {todos?.map((todo) => (
-        <p key={todo.id}>{todo.title}</p>
-      ))}
+      <input type="text" ref={textRef} />
+      <button onClick={onSubmit}>Submit</button>
     </NavBarTemplate>
   );
 }
