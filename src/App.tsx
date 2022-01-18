@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
+import useClickListener from "./components/hooks/useClickListener";
 import useFetchTodos from "./components/hooks/useFetchTodos";
 import NavBarTemplate from "./components/templates/NavBarTemplate";
 
 function App() {
   const [mouseOnDiv, setMouseOnDiv] = useState(true);
   const { todos } = useFetchTodos({ mouseOnDiv });
+
+  useClickListener();
 
   return (
     <NavBarTemplate>
@@ -27,6 +30,10 @@ function App() {
       >
         hover me
       </div>
+
+      {todos?.map((todo) => (
+        <p key={todo.id}>{todo.title}</p>
+      ))}
     </NavBarTemplate>
   );
 }
