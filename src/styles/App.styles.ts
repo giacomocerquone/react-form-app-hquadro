@@ -1,0 +1,1 @@
+export const appContainer = "h-full flex justify-center items-center"

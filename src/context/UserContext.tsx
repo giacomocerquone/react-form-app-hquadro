@@ -1,8 +1,8 @@
 import { createContext, FunctionComponent, useContext, useState } from "react";
 
 interface IUser {
-  token: string;
-  name: string;
+  token?: string;
+  name?: string;
   birthdate: string;
 }
 
