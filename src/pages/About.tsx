@@ -1,17 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchUserById } from "../actions/fetchUserById";
 import { useUser } from "../context/UserContext";
+import { setName } from "../slices/user";
 
 const About = () => {
-  const [store, setState] = useUser();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  console.log("FROM ABOUT", store);
+  const onClick = async () => {
+    dispatch(fetchUserById(1));
 
-  const onClick = () => {
-    setState({
-      birthdate: "11111111",
-    });
+    dispatch(setName("NuovoNome"));
     navigate("/home");
   };
 

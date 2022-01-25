@@ -1,10 +1,19 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useUser } from "../context/UserContext";
 
-const Home = () => {
-  const [store] = useUser();
+interface IStore {
+  user: {
+    name?: string;
+    birthdate?: string;
+    surname?: string;
+  };
+}
 
-  console.log("FROM HOME", store);
+const Home = () => {
+  const userName = useSelector((state: IStore) => state.user.name);
+
+  console.log(userName);
 
   return (
     <div>
