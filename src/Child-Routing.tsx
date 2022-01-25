@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
 import About from "./pages/About";
@@ -29,7 +28,7 @@ const App = () => {
                 </Routes>
               </>
             }
-          ></Route>
+          />
 
           <Route path="*" element={<p>not found</p>} />
         </Routes>
