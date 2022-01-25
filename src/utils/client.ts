@@ -1,5 +1,4 @@
 import axios from "axios";
-import { toggleLoader } from "../slices/ui";
 import store from "../store/store";
 
 export const client = axios.create({
@@ -8,7 +7,6 @@ export const client = axios.create({
 
 client.interceptors.request.use((config) => {
   // Il getState on è pensato per essere usato nei componenti
-  store.dispatch(toggleLoader());
   if (store.getState().user.name) {
     return {
       ...config,
@@ -24,11 +22,9 @@ client.interceptors.request.use((config) => {
 
 client.interceptors.response.use(
   (config) => {
-    store.dispatch(toggleLoader());
     return config;
   },
   (error) => {
-    store.dispatch(toggleLoader());
     // Quando il server ritorna un errore possiamo mostrare un alert
   }
 );
