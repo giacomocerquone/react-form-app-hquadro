@@ -1,28 +1,28 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { ActivityItem } from "@fluentui/react";
+import React, { useEffect } from "react";
+import { Provider, useSelector } from "react-redux";
 import store from "./store/store";
-import About from "./pages/About";
-import Home from "./pages/Home";
-import User from "./pages/User";
+import { client } from "./utils/client";
+
+const Loader = () => {
+  const isLoading = useSelector((state: any) => state.ui.loaderActive);
+  console.log(isLoading);
+
+  return isLoading && <ActivityItem />;
+};
 
 const App = () => {
+  useEffect(() => {
+    (async () => {
+      const res = await client.get("/todos");
+
+      console.log(res);
+    })();
+  }, []);
+
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <div>
-          <Link to="/">Home</Link> <Link to="/about">About</Link>{" "}
-          <Link to="/users">Users</Link> <Link to="/users/1">User 1</Link>
-        </div>
-
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/users/:id" element={<User />} />
-          <Route path="*" element={<p>not found</p>} />
-        </Routes>
-      </BrowserRouter>
+      <Loader />
     </Provider>
   );
 };

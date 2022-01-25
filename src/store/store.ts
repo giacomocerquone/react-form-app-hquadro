@@ -1,5 +1,6 @@
 import { configureStore, combineReducers, createSlice } from "@reduxjs/toolkit";
 import user from "../slices/user";
+import ui from "../slices/ui";
 
 // serializer middleware
 // thunk middleware
@@ -22,7 +23,7 @@ const todos = combineReducers({
 });
 
 const store = configureStore({
-  reducer: { user, todos },
+  reducer: { user, ui },
   devTools: process.env.NODE_ENV !== "production",
 });
 
