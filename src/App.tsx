@@ -13,10 +13,10 @@ import {
 import { Form, Formik, useField } from "formik";
 import { client } from "./utils/client";
 
-// const initialValues = {
-//   title: "",
-//   description: "",
-// };
+const initialValues = {
+  title: "",
+  description: "",
+};
 
 const MyTextArea: FunctionComponent<{ name: string }> = ({
   name,
@@ -84,18 +84,6 @@ const App = () => {
     return errors;
   };
 
-  const initialValues = useMemo(() => {
-    const refactoredTodos = todos.map((todo: any, idx: number) => ({
-      [todo + idx]: "",
-    }));
-
-    return {
-      title: "",
-      description: "",
-      ...refactoredTodos,
-    };
-  }, [todos]);
-
   return (
     <Provider store={store}>
       <FluentProvider theme={teamsTheme}>
@@ -113,13 +101,6 @@ const App = () => {
             <Form>
               <Flex column hAlign="center" vAlign="center" gap="gap.small">
                 <MyInput name="title" label="A post title" />
-                {todos.map((todo: any, idx: number) => (
-                  <MyInput
-                    key={todo.id}
-                    name={todo + idx}
-                    label={"Todo n." + idx}
-                  />
-                ))}
                 <MyTextArea name="description" />
                 <Button type="submit">Invia</Button>
               </Flex>
