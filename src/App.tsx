@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import {
@@ -7,8 +7,8 @@ import {
   Provider as FluentProvider,
   teamsTheme,
   FormMessage,
-  FormField,
   Button,
+  FormInput,
 } from "@fluentui/react-northstar";
 import { Form, Formik, useField } from "formik";
 import { client } from "./utils/client";
@@ -18,17 +18,15 @@ const initialValues = {
   description: "",
 };
 
-const MyTextArea: FunctionComponent<{ name: string }> = ({
+const MyTextArea: FunctionComponent<{ name: string; placeholder: string }> = ({
   name,
   ...props
 }) => {
   const [field, meta] = useField(name);
 
-  console.log(meta);
-
   return (
     <>
-      <TextArea placeholder="Type here..." {...field} {...props} />
+      <TextArea {...field} {...props} />
       {meta.touched && (
         <FormMessage role="alert" error>
           {meta.error}
@@ -38,14 +36,15 @@ const MyTextArea: FunctionComponent<{ name: string }> = ({
   );
 };
 
-const MyInput: FunctionComponent<{ name: string; label: string }> = ({
-  name,
-  ...props
-}) => {
+const MyInput: FunctionComponent<{
+  name: string;
+  label: string;
+  placeholder: string;
+}> = ({ name, ...props }) => {
   const [field, meta] = useField(name);
 
   return (
-    <FormField
+    <FormInput
       {...field}
       {...props}
       errorMessage={meta.touched ? meta.error : false}
@@ -56,8 +55,6 @@ const MyInput: FunctionComponent<{ name: string; label: string }> = ({
 const App = () => {
   const validate = (values: typeof initialValues) => {
     const errors: Partial<typeof initialValues> = {};
-
-    console.log(values);
 
     if (!values.title) {
       errors.title = "A title is required";
@@ -75,24 +72,31 @@ const App = () => {
   return (
     <Provider store={store}>
       <FluentProvider theme={teamsTheme}>
-          <Formik
-            validate={validate}
-            onSubmit={(values) => {
-              client.post("/posts", {
-                description: values.description,
-                title: values.title,
-              });
-            }}
-            initialValues={initialValues}
-          >
-            <Form>
-              <Flex column hAlign="center" vAlign="center" gap="gap.small">
-                <MyInput name="title" label="A post title" />
-                <MyTextArea name="description" />
-                <Button type="submit">Invia</Button>
-              </Flex>
-            </Form>
-          </Formik>
+        <Formik
+          validate={validate}
+          onSubmit={(values) => {
+            client.post("/posts", {
+              description: values.description,
+              title: values.title,
+            });
+          }}
+          initialValues={initialValues}
+        >
+          <Form>
+            <Flex column hAlign="center" vAlign="center" gap="gap.small">
+              <MyInput
+                name="title"
+                label="A post title"
+                placeholder="Insert a title"
+              />
+              <MyTextArea
+                name="description"
+                placeholder="Insert a description"
+              />
+              <Button type="submit">Invia</Button>
+            </Flex>
+          </Form>
+        </Formik>
       </FluentProvider>
     </Provider>
   );

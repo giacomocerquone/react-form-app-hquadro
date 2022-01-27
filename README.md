@@ -38,3 +38,8 @@ Form scritto con formik, axios per la richiesta POST e fluent-ui per gli element
 ### day-5v4
 
 Generazione dinamica dei campi di un form a fronte di una richiesta GET alle api
+
+### day-6
+
+Introduzione al testing con testing-library/react e jest.
+Axios mocking
