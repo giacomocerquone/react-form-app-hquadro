@@ -54,18 +54,6 @@ const MyInput: FunctionComponent<{ name: string; label: string }> = ({
 };
 
 const App = () => {
-  const [todos, setTodos] = useState<any>([]);
-
-  useEffect(() => {
-    (async () => {
-      const res = await client.get<any>("/todos");
-
-      console.log(res.data);
-
-      setTodos(res.data);
-    })();
-  }, []);
-
   const validate = (values: typeof initialValues) => {
     const errors: Partial<typeof initialValues> = {};
 
@@ -87,7 +75,6 @@ const App = () => {
   return (
     <Provider store={store}>
       <FluentProvider theme={teamsTheme}>
-        {todos && (
           <Formik
             validate={validate}
             onSubmit={(values) => {
@@ -106,7 +93,6 @@ const App = () => {
               </Flex>
             </Form>
           </Formik>
-        )}
       </FluentProvider>
     </Provider>
   );
