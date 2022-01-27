@@ -43,3 +43,7 @@ Generazione dinamica dei campi di un form a fronte di una richiesta GET alle api
 
 Introduzione al testing con testing-library/react e jest.
 Axios mocking.
+
+### day-6v2
+
+Aggiunta e scrittura di e2e tests con cypress
