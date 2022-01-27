@@ -42,4 +42,4 @@ Generazione dinamica dei campi di un form a fronte di una richiesta GET alle api
 ### day-6
 
 Introduzione al testing con testing-library/react e jest.
-Axios mocking
+Axios mocking.
