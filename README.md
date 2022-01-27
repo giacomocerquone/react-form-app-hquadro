@@ -47,3 +47,7 @@ Axios mocking.
 ### day-6v2
 
 Aggiunta e scrittura di e2e tests con cypress
+
+### day-6v3
+
+Esempio di script di deploy su github actions verso le github pages
